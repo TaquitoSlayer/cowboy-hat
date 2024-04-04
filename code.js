@@ -7,7 +7,7 @@ var canvas_hat = null;  // the christmas hat on the canvas
 
 var output_data = ""; // the image data from the christmas-ified image
 
-$(function() {
+$(function () {
     // hide the editing and saving pages
     $("#edit,#save").hide();
 
@@ -15,33 +15,32 @@ $(function() {
     $("#upload_box").hide();
 
     // if an image has been uploaded, load it and switch to edit mode
-    if($("#image").val() === "1")
-    {
+    if ($("#image").val() === "1") {
         $("#upload").hide();
         $("#edit").show();
 
         bgimage = new Image();
-        bgimage.onload = function() {
+        bgimage.onload = function () {
             initializeEditPage();
         };
         bgimage.src = $("#base64").val();
     }
 
     // upload
-    $("#upload_button").click(function() {
+    $("#upload_button").click(function () {
         // clicking the upload button is the same as clicking the browse button
         // (although the browse button is invisible for design purposes)
         $("#upload_box").click();
     });
 
     // when an image is selected
-    $("#upload_box").change(function(e) {
+    $("#upload_box").change(function (e) {
         // submit the form (upload it)
         $("#upload_form").submit();
     });
 
     // edit
-    $("#finish_edit").click(function() {
+    $("#finish_edit").click(function () {
         // save the image
         output_data = saveImage();
 
@@ -55,7 +54,7 @@ $(function() {
         $("#save").show();
     });
 
-    $("#restart_button").click(function() {
+    $("#restart_button").click(function () {
         // when you click the restart button, just reloads the current page
         window.location.href = '';
     });
@@ -69,21 +68,21 @@ $(function() {
     });
 
     // update the canvas whenever the window resizes
-    $(window).resize(function() {
+    $(window).resize(function () {
         resizeCanvas();
     });
 
     // allow scrolling on mobile
-    var disableScroll = function(){
-      canvas.allowTouchScrolling = false;
+    var disableScroll = function () {
+        canvas.allowTouchScrolling = false;
     };
 
-    var enableScroll = function(){
-      canvas.allowTouchScrolling = true;
+    var enableScroll = function () {
+        canvas.allowTouchScrolling = true;
     };
 
-    canvas.on('mouse:down', function(e) {
-        if(canvas.getActiveObject() == null) {
+    canvas.on('mouse:down', function (e) {
+        if (canvas.getActiveObject() == null) {
             // clicked on blank space
             // allow scroll
             enableScroll();
@@ -119,15 +118,14 @@ function saveImage() {
 function resizeCanvas(forcew) {
     // expand the canvas up to 500pixels
     var w = $("#edit").innerWidth();
-    if(w > 500)
+    if (w > 500)
         w = 500;
 
     // unless forcew is passed, that overrides everything
-    if(typeof forcew === "number") w = forcew;
+    if (typeof forcew === "number") w = forcew;
 
     // resize the canvas
-    if(canvas.getWidth() != w)
-    {
+    if (canvas.getWidth() != w) {
         canvas.setDimensions({
             width: w,
             height: w
@@ -165,7 +163,7 @@ function initializeEditPage() {
     // load the santa hat image
     var _hat = new Image();
     _hat.crossOrigin = "Anonymous";
-    _hat.onload = function() {
+    _hat.onload = function () {
         canvas_hat = new fabric.Image(_hat);
         // position the hat and set some colors and stuff
         canvas_hat.set({
@@ -191,7 +189,7 @@ function initializeEditPage() {
         canvas.add(canvas_outline); // add the crop outline
         canvas.setActiveObject(canvas_hat); // make sure the christmas hat is selected
     };
-    _hat.src = "res/Christmas-Hat.png";
+    _hat.src = "res/cowboyhat.png";
 
     // change the visible card
     $("#upload").hide();
@@ -206,9 +204,9 @@ function initializeEditPage() {
 function lock_and_center(obj) {
     var w = 300;
     var h = 300;
-    if(obj.width > obj.height)
+    if (obj.width > obj.height)
         h *= obj.height / obj.width;
-    else if(obj.width < obj.height)
+    else if (obj.width < obj.height)
         w *= obj.width / obj.height;
 
     obj.set({
